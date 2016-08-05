@@ -218,13 +218,17 @@ var init = function() {
 
 };
 
+var queries = window.location.search.slice(1).split('&')
+, channel = queries[0]
+, limit = queries[1].split('=')[1]
+
 new Rickshaw.Fixtures.PubNub({
   subscribe_key: 'demo',
-  channel: window.location.search.slice(1),
+  channel: channel,
   history: true,
   graph: graph,
   connect: init,
-  limit: 100
+  limit: limit
 });
 
 </script>

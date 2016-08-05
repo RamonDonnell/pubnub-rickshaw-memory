@@ -7,14 +7,17 @@ var mem = false;
 
 // set defaults
 var publish_key = "demo";
+var subscribe_key = "demo";
 var channel = 'pnrickmem-' + uuid.v4();
 var interval_timeout = 1000;
 var dev_mode = false;
 var port = 3345;
+var limit = 100
 
 // init pubnub
 var pubnub = require("pubnub")({
-  publish_key: publish_key
+  publish_key: publish_key,
+	subscribe_key: subscribe_key
 });
 
 var megabyte = 1024 * 1024;
@@ -61,7 +64,7 @@ var server = function() {
   console.log('');
   console.log('Monitor this instance:');
   console.log('');
-  console.log('http://localhost:' + String(port) + '?' + channel.red);
+  console.log('http://localhost:' + String(port) + '?' + channel.red + '&limit=' + limit);
   console.log('');
   console.log('----------------------')
   console.log('');
@@ -77,6 +80,7 @@ var init = function(options) {
     interval_timeout = options.timeout || interval_timeout;
     dev_mode = options.dev || dev_mode;
     port = options.port || port;
+    limit = options.limit || limit;
 
     if(dev_mode) {
       server();
